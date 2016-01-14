@@ -1,12 +1,12 @@
 #include <iostream>
 
-#include "Body.h"
+#include "Curve.h"
 
 using namespace std;
 
 int main(void) {
 
-	Body b(5);
+	Curve b(5);
 
 	b.addPoint(0,0,0,0,0,0);
 	b.addPoint(30,30,30,90,90,90);
