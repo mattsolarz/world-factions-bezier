@@ -26,6 +26,7 @@ void Curve::setTime(double time_in) {
 }
 
 void Curve::calculatePath() {
+	std::cout << "Calculating path\n";
 	for(size_t i = 0; i < point_list.size(); i += 2) {
 		if(i == point_list.size() - 2) {
 			double time_for_step = time * step_lengths[i] / total_distance;
@@ -54,12 +55,25 @@ void Curve::calculatePath() {
 		}
 	}
 
+	std::cout << "Calculating rotations\n";
 	for(size_t i = 0; i < rot_list.size() - 1; ++i) {
 		double time_for_step = time * step_lengths[i] / total_distance;
 		int numsteps = ceil(ACTIONS_PER_SECOND * time_for_step);
 
+
+		//std::cout << "i: " << i << "\n";
+
 		Point step = Point(rot_list[i + 1].x - rot_list[i].x, rot_list[i + 1].y - rot_list[i].y, rot_list[i + 1].z - rot_list[i].z);
+
+		//std::cout << "pre-step: " << step.toString() << "\n";
 		step = step / numsteps; // Divide into numsteps pieces
+		if(i != rot_list.size() - 2 && numsteps != 0 && i % 2 == 0)
+			numsteps -= 1;
+
+		//std::cout << "numsteps: " << numsteps << "\n";
+		//std::cout << "step: " << step.toString() << "\n";
+		//std::cout << "i + 1 s: " << rot_list[i+1].toString() << "\n";
+		//std::cout << "i s: " << rot_list[i].toString() << "\n";
 
 		for(int j = 0; j < numsteps; ++j) {
 			total_rot.push_back(rot_list[i] + (step * j));

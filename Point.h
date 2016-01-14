@@ -1,6 +1,8 @@
 #ifndef POINT_H
 #define POINT_H
 
+#include <sstream>
+
 #define ZERO_ERR 0.000001
 
 class Point {
@@ -21,14 +23,20 @@ public:
 
 	// Assignment constructor
 	Point(double x_in, double y_in, double z_in) : x(x_in), y(y_in), z(z_in), def(true) {
-		if(x < ZERO_ERR)
+		if(x < ZERO_ERR && x > ZERO_ERR * -1)
 			x = 0;
 
-		if(y < ZERO_ERR)
+		if(y < ZERO_ERR && y > ZERO_ERR * -1)
 			y = 0;
 
-		if(z < ZERO_ERR)
+		if(z < ZERO_ERR && z > ZERO_ERR * -1)
 			z = 0;
+	}
+
+	std::string toString() {
+		std::ostringstream o;
+		o << "(" << x << "," << y << "," << z << ")";
+		return o.str();
 	}
 
 	// Default destructor, copy constructor, and operator=
